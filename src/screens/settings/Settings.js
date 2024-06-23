@@ -187,6 +187,7 @@ export default function Settings(props) {
       <View style={styles.container}>
         <StatusBar backgroundColor={'white'} barStyle={'dark-content'} />
         <FlatList
+          showsVerticalScrollIndicator={false}
           data={screens}
           renderItem={renderItem}
           keyExtractor={item => item.id}

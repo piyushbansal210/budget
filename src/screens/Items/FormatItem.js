@@ -77,7 +77,7 @@ export default function FormatItem(props) {
       }
 
       console.log(existingItems);
-      console.log(props.route.params.item)
+      console.log(props.route.params.item);
 
       // Find the index of the item to edit
       const itemIndex = existingItems.findIndex(
@@ -106,7 +106,7 @@ export default function FormatItem(props) {
 
         await AsyncStorage.setItem(USER_ITEMS, JSON.stringify(existingItems));
         console.log('Item updated successfully');
-        props.navigation.navigate("Home");
+        props.navigation.navigate('Home');
       } else {
         console.log('Item not found for update');
       }
@@ -283,30 +283,34 @@ export default function FormatItem(props) {
                 paddingHorizontal: 10,
                 borderRadius: 10,
                 paddingVertical: 8,
+                height: 120, // Adjust the height as needed
               }}>
-              <View
-                style={{
-                  backgroundColor: 'rgba(48, 82, 248, 1)',
-
-                  aspectRatio: 1,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: 40,
-                }}>
-                <Image
-                  source={require('../../assets/images/icons/notes.png')}
-                  style={[styles.bottomImageDesign]}
-                />
+              <View>
+                <View
+                  style={{
+                    backgroundColor: 'rgba(48, 82, 248, 1)',
+                    padding: 8,
+                    aspectRatio: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 40,
+                  }}>
+                  <Image
+                    source={require('../../assets/images/icons/notes.png')}
+                    style={[styles.bottomImageDesign]}
+                  />
+                </View>
               </View>
               <View style={styles.inputsContainer}>
                 <TextInput
-                  // multiline={true}
+                  multiline={true}
                   style={[
                     {
                       fontFamily: 'Century Gothic',
                       fontSize: 15,
                       // backgroundColor:"red",
                       color: '#111111',
+                      flex: 1,
                     },
                   ]}
                   placeholder={'Note'}
@@ -443,13 +447,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(48, 82, 248, 1)',
     width: '40%',
     borderRadius: 10,
-    alignItems: 'center',
-    marginVertical: -10,
+    paddingVertical: 10,
+    // marginVertical:-10,
   },
   amountText: {
     fontFamily: 'Century Gothic Bold',
-    fontSize: 14,
+    fontSize: 16,
     color: 'white',
+    flex:1,
+    textAlign:"center"
   },
 
   header: {
