@@ -373,6 +373,7 @@ const styles = StyleSheet.create({
   buttonTextStyle: {
     fontFamily: 'Century Gothic',
     fontSize: 14,
+    color:"black"
   },
   headerStyle: {
     marginHorizontal: 30,
@@ -407,9 +408,10 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   arrowRightStyle: {
-    width: 14,
-    height: 14,
+    width: 12,
+    height: 12,
     resizeMode: 'contain',
+    tintColor:"black"
   },
   leftItemStyle: {
     flexDirection: 'row',
@@ -417,7 +419,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   tagStyleBox: {
-    backgroundColor: 'red',
     padding: 10,
     marginRight: 12,
     borderRadius: 10,

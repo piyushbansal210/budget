@@ -76,6 +76,9 @@ export default function FormatItem(props) {
         existingItems = JSON.parse(existingItemsString);
       }
 
+      console.log(existingItems);
+      console.log(props.route.params.item)
+
       // Find the index of the item to edit
       const itemIndex = existingItems.findIndex(
         item =>
@@ -84,7 +87,6 @@ export default function FormatItem(props) {
           item.time === props.route.params.item.time && // Ensure time comparison is in ISO format
           item.note === props.route.params.item.note &&
           item.type === props.route.params.item.type &&
-          item.typeImage === props.route.params.item.typeImage &&
           item.typeName === props.route.params.item.typeName,
       );
 

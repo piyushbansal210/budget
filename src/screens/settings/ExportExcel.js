@@ -129,11 +129,14 @@ import {
       fontFamily: 'Century Gothic',
       color: 'rgba(0, 0, 0, 0.6)',
       marginLeft: 10,
+      color:"black"
+
     },
     header: {
       fontSize: 16,
       fontFamily: 'Century Gothic',
       textAlign: 'center',
+      color:"black"
     },
     subHeader: {
       fontSize: 16,
@@ -143,6 +146,8 @@ import {
       textAlign: 'center',
       alignSelf: 'center',
       marginTop: 30,
+      color:"black"
+
     },
     checkBoxArea: {
       flexDirection: 'row',

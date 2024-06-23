@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-dupe-keys */
 /* eslint-disable prettier/prettier */
-import React, {useEffect, useReducer, useRef} from 'react';
+import React, { useEffect, useReducer, useRef } from 'react';
 import {
   Pressable,
   StatusBar,
@@ -15,26 +15,24 @@ import {
   Image,
 } from 'react-native';
 // navigation
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import {
   BottomTabBarProps,
   BottomTabNavigationOptions,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 // svg
-import Svg, {Path} from 'react-native-svg';
+import Svg, { Path } from 'react-native-svg';
 // reanimated
 import Animated, {
   useAnimatedStyle,
   withTiming,
   useDerivedValue,
 } from 'react-native-reanimated';
-// lottie
 // import Lottie from 'lottie-react-native'
 
 import Home from '../screens/Home/Home';
-import Notification from '../screens/notification/Notification';
 import DashBoard from '../screens/dashboard/DashBoard';
 import Settings from '../screens/settings/Settings';
 
@@ -46,7 +44,7 @@ const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 
 // ------------------------------------------------------------------
 
-const BottomTab = prop => {
+const BottomTab = (prop) => {
   return (
     <>
       <StatusBar barStyle="light-content" />
@@ -60,15 +58,15 @@ const BottomTab = prop => {
           tabBarActiveTintColor: 'white', // Set the active tint color here
           tabBarInactiveTintColor: 'red', // Set the inactive tint color here (optional)
         }}
-        tabBar={props => <AnimatedTabBar {...props} />}>
+        tabBar={(props) => <AnimatedTabBar {...props} />}>
         <Tab.Screen
           name="Home"
           options={{
             // @ts-ignore
-            tabBarIcon: ({ref, color}) => (
+            tabBarIcon: ({ ref, color }) => (
               <Image
                 source={require('../assets/images/home.png')}
-                style={{width: 30, height: 30, tintColor: color}}
+                style={{ width: 30, height: 30, tintColor: color }}
               />
             ),
           }}
@@ -76,26 +74,13 @@ const BottomTab = prop => {
           initialParams={prop.route.params}
         />
         <Tab.Screen
-          name="Notification"
-          options={{
-            // @ts-ignore
-            tabBarIcon: ({ref, color}) => (
-              <Image
-                source={require('../assets/images/bellnavigate.png')}
-                style={{width: 30, height: 30, tintColor: color}}
-              />
-            ),
-          }}
-          component={Notification}
-        />
-        <Tab.Screen
           name="DashBoard"
           options={{
             // @ts-ignore
-            tabBarIcon: ({ref, color}) => (
+            tabBarIcon: ({ ref, color }) => (
               <Image
                 source={require('../assets/images/dash.png')}
-                style={{width: 30, height: 30, tintColor: color}}
+                style={{ width: 30, height: 30, tintColor: color }}
               />
             ),
           }}
@@ -105,10 +90,10 @@ const BottomTab = prop => {
           name="Settings"
           options={{
             // @ts-ignore
-            tabBarIcon: ({ref, color}) => (
+            tabBarIcon: ({ ref, color }) => (
               <Image
                 source={require('../assets/images/settings.png')}
-                style={{width: 30, height: 30, tintColor: color}}
+                style={{ width: 30, height: 30, tintColor: color }}
               />
             ),
           }}
@@ -125,24 +110,24 @@ const BottomTab = prop => {
 // ------------------------------------------------------------------
 
 const AnimatedTabBar = ({
-  state: {index: activeIndex, routes},
+  state: { index: activeIndex, routes },
   navigation,
   descriptors,
 }: BottomTabBarProps) => {
-  const {bottom} = useSafeAreaInsets();
+  const { bottom } = useSafeAreaInsets();
 
   // get information about the components position on the screen -----
 
-  const reducer = (state: any, action: {x: number; index: number}) => {
+  const reducer = (state, action) => {
     // Add the new value to the state
-    return [...state, {x: action.x, index: action.index}];
+    return [...state, { x: action.x, index: action.index }];
   };
 
   const [layout, dispatch] = useReducer(reducer, []);
   console.log(layout);
 
-  const handleLayout = (event: LayoutChangeEvent, index: number) => {
-    dispatch({x: event.nativeEvent.layout.x, index});
+  const handleLayout = (event, index) => {
+    dispatch({ x: event.nativeEvent.layout.x, index });
   };
 
   // animations ------------------------------------------------------
@@ -155,7 +140,7 @@ const AnimatedTabBar = ({
     // We subtract 25 so the active background is centered behind our TabBar Components
     // 20 pixels is the width of the left part of the svg (the quarter circle outwards)
     // 5 pixels come from the little gap between the active background and the circle of the TabBar Components
-    return [...layout].find(({index}) => index === activeIndex)!.x - 25;
+    return [...layout].find(({ index }) => index === activeIndex)!.x - 25;
     // Calculate the offset new if the activeIndex changes (e.g. when a new tab is selected)
     // or the layout changes (e.g. when the components haven't finished rendering yet)
   }, [activeIndex, layout]);
@@ -163,13 +148,13 @@ const AnimatedTabBar = ({
   const animatedStyles = useAnimatedStyle(() => {
     return {
       // translateX to the calculated offset with a smooth transition
-      transform: [{translateX: withTiming(xOffset.value, {duration: 250})}],
+      transform: [{ translateX: withTiming(xOffset.value, { duration: 250 }) }],
     };
   });
 
   return (
-    <View style={{backgroundColor: 'white'}}>
-      <View style={[styles.tabBar, {paddingBottom: bottom}]}>
+    <View style={{ backgroundColor: 'white' }}>
+      <View style={[styles.tabBar, { paddingBottom: bottom }]}>
         <AnimatedSvg
           width={110}
           height={60}
@@ -184,14 +169,14 @@ const AnimatedTabBar = ({
         <View style={styles.tabBarContainer}>
           {routes.map((route, index) => {
             const active = index === activeIndex;
-            const {options} = descriptors[route.key];
+            const { options } = descriptors[route.key];
 
             return (
               <TabBarComponent
                 key={route.key}
                 active={active}
                 options={options}
-                onLayout={e => handleLayout(e, index)}
+                onLayout={(e) => handleLayout(e, index)}
                 onPress={() => navigation.navigate(route.name)}
               />
             );
@@ -233,7 +218,7 @@ const TabBarComponent = ({
     return {
       transform: [
         {
-          scale: withTiming(active ? 1 : 0, {duration: 250}),
+          scale: withTiming(active ? 1 : 0, { duration: 250 }),
         },
       ],
     };
@@ -250,10 +235,9 @@ const TabBarComponent = ({
       <Animated.View
         style={[styles.componentCircle, animatedComponentCircleStyles]}
       />
-      <Animated.View
-        style={[styles.iconContainer, animatedIconContainerStyles]}>
+      <Animated.View style={[styles.iconContainer, animatedIconContainerStyles]}>
         {/* @ts-ignore */}
-        {options.tabBarIcon ? options.tabBarIcon({ref}) : <Text>?</Text>}
+        {options.tabBarIcon ? options.tabBarIcon({ ref }) : <Text>?</Text>}
       </Animated.View>
     </Pressable>
   );

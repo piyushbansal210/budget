@@ -236,6 +236,8 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     fontFamily:"Century Gothic",
+    color:"black"
+
   },
   tableRow: {
     flexDirection: 'row',
@@ -247,6 +249,8 @@ const styles = StyleSheet.create({
   tableCell: {
     flex: 1,
     textAlign: 'center',
+    color:"black",
+    
   },
   noDataText: {
     textAlign: 'center',

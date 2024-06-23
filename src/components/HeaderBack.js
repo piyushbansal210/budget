@@ -35,6 +35,8 @@ const styles = StyleSheet.create({
     nameTextStyle:{
         fontFamily:"Century Gothic",
         fontSize: 15,
+        color:"black"
+
     },
     backButtonImageStyle:{
         width:15,

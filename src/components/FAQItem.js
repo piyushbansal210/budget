@@ -32,15 +32,15 @@ const FAQItem = (props) => {
                 </View>
             </TouchableOpacity>
             {
-                showAnswer && <View style={[styles.answerContainer,{
+                showAnswer && <TouchableOpacity onPress={()=>setShowAnswer(false)} style={[styles.answerContainer,{
                     borderTopLeftRadius: showAnswer? 0:10,
                     borderTopRightRadius: showAnswer? 0:10,
                 }]}>
                     <Text style={styles.answer}>{answer}</Text>
-                    <Pressable  style={[styles.arrowRightStyle, {marginTop:3}]} onPress={()=>setShowAnswer(false)}>
+                    <Pressable  style={[styles.arrowRightStyle, {marginTop:3}]} >
                         <Image  source={require("../assets/images/minus.png")} style={styles.addImageButtonStyle}/>
                     </Pressable>
-                </View>
+                </TouchableOpacity>
             }
         </View>
         
@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
         fontFamily:"Century Gothic",
         fontSize: 14,
         marginHorizontal:10,
+        color:"black"
 
     },
     container:{
@@ -101,6 +102,7 @@ const styles = StyleSheet.create({
         fontFamily:"Century Gothic",
         fontSize: 14,
         marginHorizontal:10,
+        color:"black"
     },
     arrowRightStyle:{
         
@@ -108,7 +110,6 @@ const styles = StyleSheet.create({
         borderRadius: 2,
     },
     tagStyleBox:{
-        backgroundColor:"red",
         padding:10,
         borderRadius: 10,
 

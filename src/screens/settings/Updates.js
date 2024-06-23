@@ -52,7 +52,9 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontFamily:'Century Gothic',
         textAlign:"center",
-        marginTop:10
+        marginTop:10,
+        color:"black"
+
     },
     subHeader:{
         fontSize: 16,
