@@ -22,12 +22,12 @@ import {
   TouchableOpacity,
   Touchable,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Screen from '../../components/Screen';
 import HeaderBack from '../../components/HeaderBack';
-import {TextInput} from 'react-native-gesture-handler';
+import { TextInput } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
-import {addAddItem} from '../../assets/asyncData/utils';
+import { addAddItem } from '../../assets/asyncData/utils';
 import DatePicker from 'react-native-date-picker';
 
 export default function Items(props) {
@@ -85,7 +85,7 @@ export default function Items(props) {
             <View style={styles.descLeft}>
               <Text style={styles.header}>{props.route.params.item.name}</Text>
               <Text style={styles.headerTitle}>
-                Spending is one thing, Logging is another. Log in Now
+                Feed your cash spendings manually to not miss even a penny.
               </Text>
             </View>
             <View style={styles.descRight}>
@@ -237,12 +237,12 @@ export default function Items(props) {
               }}>
               <View>
                 <View style={{
-                    backgroundColor: 'rgba(48, 82, 248, 1)',
-                    padding:8,
-                    aspectRatio: 1,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: 40,
+                  backgroundColor: 'rgba(48, 82, 248, 1)',
+                  padding: 8,
+                  aspectRatio: 1,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 40,
                 }}>
                   <Image
                     source={require('../../assets/images/icons/notes.png')}
@@ -257,9 +257,9 @@ export default function Items(props) {
                     {
                       fontFamily: 'Century Gothic',
                       fontSize: 15,
-                      // backgroundColor:"red",
                       color: '#111111',
                       flex: 1,
+                      textAlignVertical: "top",
                     },
                   ]}
                   placeholder={'Note'}
@@ -397,7 +397,7 @@ const styles = StyleSheet.create({
     width: '40%',
     borderRadius: 10,
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 0,
     // marginVertical:-10,
   },
   amountText: {

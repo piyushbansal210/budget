@@ -1,11 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 // Import the items and color arrays
-import {items, color} from '../assets/data/items';
+import { items, color } from '../assets/data/items';
 
-const TransactionsDisplay = ({data, navigation}) => {
+const TransactionsDisplay = ({ data, navigation }) => {
   if (!data || data.length === 0) {
     return <></>;
   }
@@ -16,7 +16,7 @@ const TransactionsDisplay = ({data, navigation}) => {
     const time = transaction.time.split('T')[1].split('.')[0]; // Extracting time from ISO format
     const dateTime = new Date(`${date}T${time}`).getTime(); // Creating a Date object for sorting
     if (!groups[date]) {
-      groups[date] = {transactions: [], minTime: dateTime, maxTime: dateTime};
+      groups[date] = { transactions: [], minTime: dateTime, maxTime: dateTime };
     } else {
       if (dateTime < groups[date].minTime) {
         groups[date].minTime = dateTime;
@@ -130,7 +130,7 @@ const TransactionsDisplay = ({data, navigation}) => {
                     }}
                   />
                 </View>
-                <View style={{flex: 1, marginLeft: 20}}>
+                <View style={{ flex: 1, marginLeft: 20 }}>
                   <Text
                     style={{
                       fontFamily: 'Century Gothic',

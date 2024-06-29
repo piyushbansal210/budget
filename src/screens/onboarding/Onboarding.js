@@ -7,8 +7,8 @@
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable no-unused-vars */
 
-import {View, Text, FlatList, StyleSheet, Dimensions, TouchableOpacity, LogBox, StatusBar, Image} from 'react-native';
-import React, {useRef, useState} from 'react';
+import { View, Text, FlatList, StyleSheet, Dimensions, TouchableOpacity, LogBox, StatusBar, Image } from 'react-native';
+import React, { useRef, useState } from 'react';
 import OnboardingItem from '../../components/OnboardingItem';
 import Screen from '../../components/Screen';
 
@@ -26,26 +26,26 @@ const Onboarding = (props) => {
 
   const data = [
     {
-      id:1,
+      id: 1,
       imageUrl: require("../../assets/images/onboard1.png"),
-      description:"Track income and expenses effortlessly. Gain insights into your spending habits. Make informed financial decisions to reach your goals.",
+      description: "Track income and expenses effortlessly. Gain insights into your spending habits. Make informed financial decisions to reach your goals.",
       imageName: "board_check",
-      buttonText:"Next",
-      showBackButton:false,
+      buttonText: "Next",
+      showBackButton: false,
     },
     {
-      id:2,
+      id: 2,
       imageUrl: require("../../assets/images/onboard2.png"),
-      description:"Our app automatically retrieves your transactions, saving you time and effort. Focus on managing your finances, not tedious paperwork.",
+      description: "Keep your hands free because our app automatically retrieves your transactions, saving you time and effort.",
       imageName: "pig_bank",
-      buttonText:"Next",
+      buttonText: "Next",
     },
     {
-      id:3,
+      id: 3,
       imageUrl: require("../../assets/images/onboard3.png"),
-      description:"Create personalized budgets and track your progress in real-time. Gain insights and receive alerts to stay on track. Achieve your financial goals with confidence.",
+      description: "Create personalized budgets and track your progress in real-time. Gain insights and receive alerts to stay on track. Achieve your financial goals with confidence.",
       imageName: "container_coin",
-      buttonText:"Get Started",
+      buttonText: "Get Started",
     },
   ];
 
@@ -84,7 +84,7 @@ const Onboarding = (props) => {
   const renderItem = ({ item, index }) => {
     console.log(item.id);
 
-    function navigateScreens(){
+    function navigateScreens() {
       if (item.buttonText === "Get Started") {
         props.navigation.navigate("UserDetails");
       }
@@ -97,30 +97,30 @@ const Onboarding = (props) => {
         <View style={styles.upperItems}>
           {
             item.id !== 1 && (
-            <TouchableOpacity style={styles.backButtonStyle} onPress={handleBack} disabled={index === 0}>
-              <Image style={styles.backButtonImageStyle} source={require("../../assets/images/whitearrow.png")}/>
-            </TouchableOpacity>
+              <TouchableOpacity style={styles.backButtonStyle} onPress={handleBack} disabled={index === 0}>
+                <Image style={styles.backButtonImageStyle} source={require("../../assets/images/whitearrow.png")} />
+              </TouchableOpacity>
             )
           }
         </View>
 
         <View style={styles.middleItems}>
-          <Image source={item.imageUrl} style={styles.onboardImageStyle}/>
+          <Image source={item.imageUrl} style={styles.onboardImageStyle} />
           <Text style={styles.description}>{item.description}</Text>
         </View>
-        
+
 
         <View style={styles.bottomItems}>
           <View style={[styles.dotsContainer]}>
             {renderDot()}
           </View>
-          
+
           <TouchableOpacity style={styles.button} onPress={() => navigateScreens()}>
-              <Text style={styles.buttonText}>{item.buttonText}  →</Text>
+            <Text style={styles.buttonText}>{item.buttonText}  →</Text>
           </TouchableOpacity>
         </View>
-        
-        
+
+
       </View>
     );
   };
@@ -128,7 +128,7 @@ const Onboarding = (props) => {
   return (
     <Screen>
       <View style={styles.container}>
-        <StatusBar backgroundColor={"white"}   barStyle={'dark-content'} />
+        <StatusBar backgroundColor={"white"} barStyle={'dark-content'} />
         <FlatList
           ref={flatListRef}
           data={data}
@@ -144,10 +144,10 @@ const Onboarding = (props) => {
             }
           }}
         />
-        
+
       </View>
     </Screen>
-    
+
   );
 };
 
@@ -155,47 +155,47 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  description:{
+  description: {
     // fontSize:12,
-    fontFamily:'Century Gothic',
-    textAlign:"center",
-    
+    fontFamily: 'Century Gothic',
+    textAlign: "center",
+
 
   },
-  backButtonStyle:{
-    backgroundColor:"rgba(48, 82, 248, 0.25)",
-    height:40,
-    width:40,
-    alignItems:"center",
-    justifyContent:'center',
-    borderRadius:20,
-    marginTop:20,
+  backButtonStyle: {
+    backgroundColor: "rgba(48, 82, 248, 0.25)",
+    height: 40,
+    width: 40,
+    alignItems: "center",
+    justifyContent: 'center',
+    borderRadius: 20,
+    marginTop: 20,
   },
-  backButtonImageStyle:{
-    width:15,
-    height:15,
-    resizeMode:'contain',
+  backButtonImageStyle: {
+    width: 15,
+    height: 15,
+    resizeMode: 'contain',
   },
-  onboardImageStyle:{
-    height:DEVICE_HEIGHT/2.7,
-    aspectRatio:1,
-    alignSelf:"center",
-    
+  onboardImageStyle: {
+    height: DEVICE_HEIGHT / 2.7,
+    aspectRatio: 1,
+    alignSelf: "center",
+
   },
-  middleItems:{
-    flex:1,
-    paddingHorizontal:20,
-    justifyContent:"space-evenly",
+  middleItems: {
+    flex: 1,
+    paddingHorizontal: 20,
+    justifyContent: "space-evenly",
   },
-  upperItems:{
+  upperItems: {
   },
-  bottomItems:{
-    justifyContent:"flex-end",
-    paddingBottom:25,
+  bottomItems: {
+    justifyContent: "flex-end",
+    paddingBottom: 25,
   },
   slide: {
     width: DEVICE_WIDTH,
-    paddingHorizontal:20,
+    paddingHorizontal: 20,
   },
   backButtonText: {
     fontSize: 20,
@@ -214,16 +214,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#526FFC',
     padding: 15,
     borderRadius: 5,
-    alignItems:"center",
-    justifyContent:"center",
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 10,
-    
+
   },
   buttonText: {
     color: '#fff',
     fontSize: 16,
-    fontFamily:'Century Gothic',
-    textAlign:"center"
+    fontFamily: 'Century Gothic',
+    textAlign: "center"
   },
   dotsContainer: {
     flexDirection: 'row',

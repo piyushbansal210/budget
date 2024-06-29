@@ -1,4 +1,4 @@
-/* eslint-disable react-native/no-inline-styles */
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -8,25 +8,38 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
 import Screen from '../../components/Screen';
 import HeaderBack from '../../components/HeaderBack';
 
-import {items} from '../../assets/data/items';
+import { items } from '../../assets/data/items';
 import LinearGradient from 'react-native-linear-gradient';
-import {addAddItem, removeItem} from '../../assets/asyncData/utils';
+import { removeItem } from '../../assets/asyncData/utils';
 
 const RemoveItem = props => {
-  console.log(
-    JSON.stringify(props.route.params.colorBg) + ' these are the params',
-  );
+  const [formattedDate, setFormattedDate] = useState('');
+  const [formattedTime, setFormattedTime] = useState('');
 
-  // Find the image for the transaction type
-  const index = props.route.params.items.type === 'Expense' ? 0 : 1;
+  useEffect(() => {
+    // Format date
+    const formatDate = props.route.params.items.date;
+    const frdt = new Date(formatDate);
 
-  const itemType = items[index].items.find(
-    item => item.name === props.route.params.items.typeName,
-  );
+    const year = frdt.getFullYear();
+    const month = (frdt.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 to month because it's zero-based
+    const day = frdt.getDate().toString().padStart(2, '0');
+    const formattedDate = `${day} - ${month} - ${year}`;
+
+    // Format time
+    const dateObj = new Date(props.route.params.items.time);
+    let hours = dateObj.getHours();
+    const minutes = dateObj.getMinutes().toString().padStart(2, '0');
+    const period = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
+    const formattedTime = `${hours}:${minutes} ${period}`;
+
+    setFormattedDate(formattedDate);
+    setFormattedTime(formattedTime);
+  }, [props.route.params.items.date, props.route.params.items.time]);
 
   const removeBinItem = async () => {
     console.log();
@@ -41,37 +54,26 @@ const RemoveItem = props => {
   };
 
   const pressedEditPayment = () => {
+    const data = props.route.params.items;
+    data["timeFormat"] = formattedTime;
+    data["dateFormat"] = formattedDate;
 
-    var formatDate = props.route.params.items.date;
-    var frdt = new Date(formatDate);
-
-    var year = frdt.getFullYear();
-    var month = (frdt.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 to month because it's zero-based
-    var day = frdt.getDate().toString().padStart(2, '0');
-    var formattedDate = day + ' - ' + month + ' - ' + year;
-
-    var dateObj = new Date(props.route.params.items.time);
-    var hours = dateObj.getHours();
-    var minutes = dateObj.getMinutes().toString().padStart(2, '0');
-    var period = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12 || 12;
-    var formattedTime = hours + ':' + minutes + ' ' + period;
-
-    var data = props.route.params.items;
-    data["timeFormat"] = formattedTime
-    data["dateFormat"] = formattedDate
-
-    
     props.navigation.navigate('FormatItem', {
       item: data,
-      typeNavi:"edit_item"
+      typeNavi: "edit_item"
     });
   };
 
+  // Find the image for the transaction type
+  const index = props.route.params.items.type === 'Expense' ? 0 : 1;
+  const itemType = items[index].items.find(
+    item => item.name === props.route.params.items.typeName,
+  );
+
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <Screen>
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
           <StatusBar backgroundColor={'white'} barStyle={'dark-content'} />
           <Pressable
             style={styles.headerStyle}
@@ -79,11 +81,11 @@ const RemoveItem = props => {
             <HeaderBack navigation={props.navigation} />
           </Pressable>
           <TouchableOpacity
-            style={{alignItems: 'flex-end'}}
+            style={{ alignItems: 'flex-end' }}
             onPress={() => removeBinItem()}>
             <Image
               source={require('../../assets/images/bin.png')}
-              style={{width: 40, height: 40, marginHorizontal: 30}}
+              style={{ width: 40, height: 40, marginHorizontal: 30 }}
             />
           </TouchableOpacity>
 
@@ -95,7 +97,7 @@ const RemoveItem = props => {
               borderRadius: 10,
               padding: 10,
             }}>
-            <View style={{flexDirection: 'row'}}>
+            <View style={{ flexDirection: 'row' }}>
               <View
                 style={{
                   width: 50,
@@ -116,7 +118,7 @@ const RemoveItem = props => {
                   />
                 </View>
               </View>
-              <View style={{flex: 1, marginLeft: 10}}>
+              <View style={{ flex: 1, marginLeft: 10 }}>
                 <Text
                   style={{
                     fontFamily: 'Century Gothic',
@@ -131,7 +133,7 @@ const RemoveItem = props => {
                     fontSize: 11,
                     color: 'rgba(0,0,0,0.4)',
                   }}>
-                  {props.route.params.items.date}
+                  {formattedDate} {/* Display formatted date */}
                 </Text>
                 <Text
                   style={{
@@ -140,13 +142,7 @@ const RemoveItem = props => {
                     color: 'rgba(0,0,0,0.4)',
                   }}>
                   {'AT '}
-                  {new Date(props.route.params.items.time)
-                    .toLocaleTimeString([], {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                      hour12: true,
-                    })
-                    .toUpperCase()}
+                  {formattedTime} {/* Display formatted time */}
                 </Text>
               </View>
               <View>
@@ -173,7 +169,7 @@ const RemoveItem = props => {
                   paddingHorizontal: 8,
                   marginTop: 10,
                 }}>
-                <Text style={{fontFamily: 'Century Gothic', fontSize: 14}}>
+                <Text style={{ fontFamily: 'Century Gothic', fontSize: 14 }}>
                   {props.route.params.items.note}
                 </Text>
               </View>
@@ -182,9 +178,9 @@ const RemoveItem = props => {
           <View style={styles.incomeTextContainer}>
             <TouchableOpacity onPress={() => pressedEditPayment()}>
               <LinearGradient
-                start={{x: 0.5, y: 1.0}}
-                end={{x: 0.0, y: 0.25}}
-                style={{borderRadius: 10}}
+                start={{ x: 0.5, y: 1.0 }}
+                end={{ x: 0.0, y: 0.25 }}
+                style={{ borderRadius: 10 }}
                 colors={[
                   'rgba(48, 82, 248, 1)',
                   'rgba(48, 82, 248, 1)',

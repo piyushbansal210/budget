@@ -22,7 +22,7 @@ import {
   ScrollView,
   Pressable,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import DatePicker from 'react-native-date-picker';
 
@@ -67,13 +67,13 @@ export default function UserDetails(props) {
           <View style={styles.textLabelContainer}>
             <Text style={styles.userDetails}>USER DETAILS</Text>
             <Text style={styles.loremLabel}>
-              Lorem Ipsum, the trusted companion of designers and typesetters
+              Enter your details to start the journey of an aware individual achieving financial goals
             </Text>
           </View>
           <View style={styles.inputAreaContainer}>
             <View style={styles.nameContainer}>
               <Text style={styles.labelStyle}>
-                Name<Text style={{color: 'red'}}>*</Text>
+                Name<Text style={{ color: 'red' }}>*</Text>
               </Text>
               <TextInput
                 value={name}
@@ -83,8 +83,8 @@ export default function UserDetails(props) {
               />
             </View>
             <View style={styles.nameContainer}>
-              <Text  style={styles.labelStyle}>
-                DOB<Text style={{color: 'red'}}>*</Text>
+              <Text style={styles.labelStyle}>
+                DOB<Text style={{ color: 'red' }}>*</Text>
               </Text>
               <TextInput
                 value={dateFormat}
@@ -92,8 +92,8 @@ export default function UserDetails(props) {
                 editable={false}
               />
               <Pressable
-                style={{flex: 1}}
-                hitSlop={{top: 50, bottom: 0, left: 10, right: 10}}
+                style={{ flex: 1 }}
+                hitSlop={{ top: 50, bottom: 0, left: 10, right: 10 }}
                 onPress={handleInputPress}
               />
             </View>
@@ -124,7 +124,7 @@ export default function UserDetails(props) {
             onPress={() => getaAddSalary()}
             style={[
               styles.button,
-              !(name && date) && {backgroundColor: '#EAEAEA'},
+              !(name && date) && { backgroundColor: '#EAEAEA' },
             ]}>
             <Text style={styles.buttonText}>Get Started →</Text>
           </Pressable>
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Century Gothic',
     textAlign: 'center',
-    
+
   },
   userDetails: {
     textAlign: 'center',
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     width: DEVICE_WIDTH / 5,
     resizeMode: 'contain',
     shadowColor: '#ccc',
-    shadowOffset: {width: 1, height: 6},
+    shadowOffset: { width: 1, height: 6 },
     shadowOpacity: 1,
     shadowRadius: 4,
   },

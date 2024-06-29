@@ -20,13 +20,13 @@ import {
   Modal,
   Pressable,
 } from 'react-native';
-import React, {useState, useRef, useMemo, useEffect} from 'react';
+import React, { useState, useRef, useMemo, useEffect } from 'react';
 
 import LinearGradient from 'react-native-linear-gradient';
 import Screen from '../../components/Screen';
-import BottomSheet, {BottomSheetView} from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {CommonActions, useFocusEffect} from '@react-navigation/native';
+import { CommonActions, useFocusEffect } from '@react-navigation/native';
 import CheckBox from '../../components/CheckBox';
 import { getUserData } from '../../assets/asyncData/utils';
 import { USER } from '../../assets/asyncData/keys';
@@ -64,12 +64,12 @@ export default function Settings(props) {
       image: require('../../assets/images/excel.png'),
       screenName: 'ExportExcel',
     },
-    {
-      id: 5,
-      screen_name: 'Check Updates',
-      image: require('../../assets/images/reuse.png'),
-      screenName: 'Updates',
-    },
+    // {
+    //   id: 5,
+    //   screen_name: 'Check Updates',
+    //   image: require('../../assets/images/reuse.png'),
+    //   screenName: 'Updates',
+    // },
     {
       id: 8,
       screen_name: 'Reset All Data',
@@ -87,7 +87,7 @@ export default function Settings(props) {
       const getUserDt = async () => {
         try {
           const result = await getUserData(USER);
-          console.log(JSON.stringify(result)+" this is the result")
+          console.log(JSON.stringify(result) + " this is the result")
           setName(result.name);
         } catch (error) {
           console.error('Error retrieving user data:', error);
@@ -111,7 +111,7 @@ export default function Settings(props) {
     }, [])
   );
 
-  const renderItem = ({item, index}) => {
+  const renderItem = ({ item, index }) => {
     const onPress = () => {
       if (item.screen_name === 'Reset All Data') {
         setModalVisible(true);
@@ -144,21 +144,21 @@ export default function Settings(props) {
     return (
       <View style={styles.headerStyle}>
         <View style={styles.headerLeftContainer}>
-        <View style={styles.imageContainer}>
-          {profileImage ? (
-            <Image source={{uri: profileImage}} style={styles.profileImage} />
-          ) : (
-            <View style={styles.placeholder}>
-              <Text style={styles.placeholderText}>Choose a Picture</Text>
-            </View>
-          )}
-        </View>
+          <View style={styles.imageContainer}>
+            {profileImage ? (
+              <Image source={{ uri: profileImage }} style={styles.profileImage} />
+            ) : (
+              <View style={styles.placeholder}>
+                <Text style={styles.placeholderText}>Choose a Picture</Text>
+              </View>
+            )}
+          </View>
         </View>
         <View style={styles.headerRightContainer}>
           <Text style={styles.userNameStyle}>{name}</Text>
-          <Text style={styles.userNameDescStyle}>
+          {/* <Text style={styles.userNameDescStyle}>
             Lorem Ipsum, the trusted companion of designers and typesetters
-          </Text>
+          </Text> */}
         </View>
       </View>
     );
@@ -170,10 +170,10 @@ export default function Settings(props) {
         setModalVisible(!modalVisible);
         await AsyncStorage.clear();
         props.navigation.dispatch(
-            CommonActions.reset({
-                index: 0,
-                routes: [{ name: 'Splash' }],
-            })
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: 'Splash' }],
+          })
         );
         console.log('pressed');
       } catch (error) {
@@ -209,7 +209,7 @@ export default function Settings(props) {
             <View style={styles.modalView}>
               <Image
                 source={require('../../assets/images/resetImg.png')}
-                style={{width: 150, height: 100, resizeMode: 'contain'}}
+                style={{ width: 150, height: 100, resizeMode: 'contain' }}
               />
               <Text style={styles.modalText}>
                 Would you like to reset all data in your app?
@@ -221,18 +221,17 @@ export default function Settings(props) {
                   style={styles.checkbox}
                 />
                 <Text style={styles.label}>
-                  Please be aware that data backup will not be available after a
-                  reset.
+                  You will lose all your data after a successful reset, do you like to proceed?
                 </Text>
               </View>
               <View style={styles.buttonContainer}>
                 <Pressable
-                  style={[styles.button,isChecked?styles.buttonConfirm: styles.buttonClose]}
+                  style={[styles.button, isChecked ? styles.buttonConfirm : styles.buttonClose]}
                   onPress={() => setModalVisible(!modalVisible)}>
                   <Text style={styles.textStyle}>No</Text>
                 </Pressable>
                 <Pressable
-                  style={[styles.button, isChecked?styles.buttonClose: styles.buttonConfirm]}
+                  style={[styles.button, isChecked ? styles.buttonClose : styles.buttonConfirm]}
                   onPress={handleResetData}>
                   <Text style={styles.textStyle}>Yes</Text>
                 </Pressable>
@@ -276,7 +275,7 @@ const styles = StyleSheet.create({
   },
   button: {
     borderRadius: 10,
-    flex:1,
+    flex: 1,
     padding: 10,
     elevation: 2,
     marginHorizontal: 10,
@@ -363,7 +362,6 @@ const styles = StyleSheet.create({
   },
   headerRightContainer: {
     flex: 1,
-    marginTop: 15,
     marginLeft: 20,
   },
   headerLeftContainer: {},
@@ -374,12 +372,14 @@ const styles = StyleSheet.create({
   buttonTextStyle: {
     fontFamily: 'Century Gothic',
     fontSize: 14,
-    color:"black"
+    color: "black"
   },
   headerStyle: {
     marginHorizontal: 30,
     flexDirection: 'row',
     flex: 1,
+    alignItems: "center",
+    marginBottom: 20
   },
   pressedItem: {
     backgroundColor: 'rgba(48, 82, 248, 0.25)',
@@ -412,7 +412,7 @@ const styles = StyleSheet.create({
     width: 12,
     height: 12,
     resizeMode: 'contain',
-    tintColor:"black"
+    tintColor: "black"
   },
   leftItemStyle: {
     flexDirection: 'row',
@@ -426,7 +426,6 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     alignItems: 'center',
-    marginBottom: 20,
   },
   profileImage: {
     width: 100,
@@ -443,7 +442,7 @@ const styles = StyleSheet.create({
   },
   placeholderText: {
     color: '#888',
-    textAlign:"center",
-    fontFamily:"Century Gothic",
+    textAlign: "center",
+    fontFamily: "Century Gothic",
   },
 });

@@ -1,9 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Text, Pressable} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import { View, Text, Pressable } from 'react-native';
+import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-native-date-picker';
-import {PieChart} from 'react-native-chart-kit';
-import {Dimensions} from 'react-native';
+import { PieChart } from 'react-native-chart-kit';
+import { Dimensions } from 'react-native';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -33,9 +33,9 @@ const Charts = props => {
         .map((item, index) => ({
           name: item.typeName,
           amount: parseFloat(item.amount.replace('₹', '')),
-          color: `rgba(48, 82, 248, ${0.8 - index * 0.1})`,
+          color: `rgba(48, 82, 248, ${0.8 - index * 0.04})`, // Adjusted to avoid very light colors
           legendFontColor: '#000080', // Dark Blue
-          legendFontSize: 8,
+          legendFontSize: 9,
           legendFontStyle: 'Century Gothic',
         }));
 
@@ -49,9 +49,9 @@ const Charts = props => {
         .map((item, index) => ({
           name: item.typeName,
           amount: parseFloat(item.amount.replace('₹', '')),
-          color: `rgba(34, 139, 34, ${0.8 - index * 0.1})`,
+          color: `rgba(34, 139, 34, ${0.8 - index * 0.04})`, // Adjusted to avoid very light colors
           legendFontColor: '#008000', // Green
-          legendFontSize: 8,
+          legendFontSize: 9,
           legendFontStyle: 'Century Gothic',
         }));
 
@@ -71,7 +71,7 @@ const Charts = props => {
   };
 
   return (
-    <View style={{padding: 30}}>
+    <View style={{ padding: 30 }}>
       <View>
         <Pressable
           onPress={() => setStartOpen(true)}
@@ -143,22 +143,22 @@ const Charts = props => {
       </View>
 
       {/* Expense Section */}
-      <View style={{marginTop: 40}}>
-        <Text style={{fontSize: 20, fontFamily: 'Inter-Medium'}}>Expenses</Text>
-        <View style={{alignItems: 'center', marginVertical: 20}}>
+      <View style={{ marginTop: 40 }}>
+        <Text style={{ fontSize: 20, fontFamily: 'Inter-Medium' }}>Expenses</Text>
+        <View style={{ alignItems: 'center', marginVertical: 20 }}>
           <PieChart
             data={
               expenseData.length > 0
                 ? expenseData
                 : [
-                    {
-                      name: 'No Expense Data',
-                      amount: 1,
-                      color: 'lightgrey',
-                      legendFontColor: 'transparent', // Making legend invisible
-                      legendFontSize: 0, // Hide the legend text
-                    },
-                  ]
+                  {
+                    name: 'No Expense Data',
+                    amount: 1,
+                    color: 'lightgrey',
+                    legendFontColor: 'transparent', // Making legend invisible
+                    legendFontSize: 0, // Hide the legend text
+                  },
+                ]
             }
             width={screenWidth}
             height={220}
@@ -181,22 +181,22 @@ const Charts = props => {
       </View>
 
       {/* Income Section */}
-      <View style={{marginTop: 20}}>
-        <Text style={{fontSize: 20, fontFamily: 'Inter-Medium'}}>Income</Text>
-        <View style={{alignItems: 'center', marginVertical: 20}}>
+      <View style={{ marginTop: 20 }}>
+        <Text style={{ fontSize: 20, fontFamily: 'Inter-Medium' }}>Income</Text>
+        <View style={{ alignItems: 'center', marginVertical: 20 }}>
           <PieChart
             data={
               incomeData.length > 0
                 ? incomeData
                 : [
-                    {
-                      name: 'No Income Data',
-                      amount: 1,
-                      color: 'lightgrey',
-                      legendFontColor: 'transparent', // Making legend invisible
-                      legendFontSize: 0, // Hide the legend text
-                    },
-                  ]
+                  {
+                    name: 'No Income Data',
+                    amount: 1,
+                    color: 'lightgrey',
+                    legendFontColor: 'transparent', // Making legend invisible
+                    legendFontSize: 0, // Hide the legend text
+                  },
+                ]
             }
             width={screenWidth}
             height={220}

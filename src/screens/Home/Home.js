@@ -17,15 +17,15 @@ import {
   ScrollView,
   Pressable,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Screen from '../../components/Screen';
 import LinearGradient from 'react-native-linear-gradient';
 import AddItemComponenet from '../../components/AddItemComponenet';
 
-import {USER} from '../../assets/asyncData/keys';
-import {getAddItem, getUserData} from '../../assets/asyncData/utils';
+import { USER } from '../../assets/asyncData/keys';
+import { getAddItem, getUserData } from '../../assets/asyncData/utils';
 import Loader from '../../components/Loader';
-import {useFocusEffect} from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import TransactionsDisplay from '../../components/TransactionsDisplay';
 import {
   AdEventType,
@@ -142,7 +142,7 @@ export default function Home(props) {
   };
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <Screen>
         <StatusBar backgroundColor={'white'} barStyle={'dark-content'} />
         <ScrollView
@@ -150,8 +150,12 @@ export default function Home(props) {
           showsVerticalScrollIndicator={false}>
           <View>
             <View style={styles.userHeader}>
-              <View>
-                <Text style={styles.username}>{userName}</Text>
+              <View style={{
+                width: "50%",
+                alignItems: "flex-end"
+
+              }}>
+                <Text numberOfLines={1} style={styles.username}>{userName}</Text>
                 <Text style={styles.username}>{date}</Text>
               </View>
               <LinearGradient
@@ -169,13 +173,13 @@ export default function Home(props) {
             </View>
           </View>
           <View style={styles.helloContainer}>
-            <Text style={styles.hello}>Hello!</Text>
+            <Text style={styles.hello}>Howdy!</Text>
             <Text style={styles.helloMessage}>
-              Let's Manage your Budget Today so you don't go overboard
+              Let’s Manage your budget today so you don’t go overboard
             </Text>
           </View>
 
-          <View style={{marginHorizontal: 15, marginTop: 50}}>
+          <View style={{ marginHorizontal: 15, marginTop: 50 }}>
             <LinearGradient
               colors={[
                 'rgba(48, 82, 248, 1)',
@@ -214,23 +218,23 @@ export default function Home(props) {
           {salary && (
             <View style={styles.incomeTextContainer}>
               <LinearGradient
-                start={{x: 0.5, y: 1.0}}
-                end={{x: 0.0, y: 0.25}}
+                start={{ x: 0.5, y: 1.0 }}
+                end={{ x: 0.0, y: 0.25 }}
                 colors={[
                   'rgba(48, 82, 248, 1)',
                   'rgba(48, 82, 248, 1)',
                   '#5B7FFF',
                 ]}
                 style={styles.incomeButton}>
-                <Text style={styles.incomeButtonText}>{`₹${salary}`}</Text>
+                <Text numberOfLines={1} style={styles.incomeButtonText}>{`₹${salary}`}</Text>
               </LinearGradient>
               <Text style={styles.incomeButtonBelowText}>
-                Lorem Ipsum, the trusted companion of designers and typesetters
+                Statement of Account to let you navigate with balance in the economic realm.
               </Text>
             </View>
           )}
 
-          <View style={{marginHorizontal: 20, marginTop: 20}}>
+          <View style={{ marginHorizontal: 20, marginTop: 20 }}>
             <TransactionsDisplay
               data={transactions}
               navigation={props.navigation}

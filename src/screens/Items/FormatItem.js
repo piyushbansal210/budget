@@ -22,17 +22,17 @@ import {
   TouchableOpacity,
   Touchable,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Screen from '../../components/Screen';
 import HeaderBack from '../../components/HeaderBack';
-import {TextInput} from 'react-native-gesture-handler';
+import { TextInput } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
-import {addAddItem} from '../../assets/asyncData/utils';
+import { addAddItem } from '../../assets/asyncData/utils';
 import DatePicker from 'react-native-date-picker';
 
-import {items, color} from '../../assets/data/items';
+import { items, color } from '../../assets/data/items';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {USER_ITEMS} from '../../assets/asyncData/keys';
+import { USER_ITEMS } from '../../assets/asyncData/keys';
 
 export default function FormatItem(props) {
   const [amount, setAmount] = useState(
@@ -133,7 +133,7 @@ export default function FormatItem(props) {
                 {props.route.params.item.typeName}
               </Text>
               <Text style={styles.headerTitle}>
-                Lorem Ipsum, the trusted companion of designers and typesetters
+                Feed your cash spendings manually to not miss even a penny.
               </Text>
             </View>
             <View style={styles.descRight}>
@@ -311,6 +311,7 @@ export default function FormatItem(props) {
                       // backgroundColor:"red",
                       color: '#111111',
                       flex: 1,
+                      textAlignVertical: "top",
                     },
                   ]}
                   placeholder={'Note'}
@@ -447,15 +448,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(48, 82, 248, 1)',
     width: '40%',
     borderRadius: 10,
-    paddingVertical: 10,
+    paddingVertical: 0,
     // marginVertical:-10,
   },
   amountText: {
     fontFamily: 'Century Gothic Bold',
     fontSize: 16,
     color: 'white',
-    flex:1,
-    textAlign:"center"
+    flex: 1,
+    textAlign: "center"
   },
 
   header: {

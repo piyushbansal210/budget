@@ -134,6 +134,7 @@ const PersonalDetailsScreen = (props) => {
         <TextInput
           style={styles.input}
           value={income}
+          keyboardType="numeric"
           onChangeText={setIncome}
           placeholder="₹ 10 000-50 000"
         />
