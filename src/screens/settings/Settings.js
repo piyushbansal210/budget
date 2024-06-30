@@ -24,6 +24,13 @@ import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads'
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
 
+// Replace with your actual ad unit IDs for production
+const bannerAdUnitId = __DEV__
+  ? TestIds.BANNER
+  : Platform.OS === 'iOS'
+  ? 'ca-app-pub-5520896784082974/1404180348'
+  : 'ca-app-pub-5520896784082974/8300142632';
+
 export default function Settings(props) {
   const bottomSheetRef = useRef(null);
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
@@ -219,7 +226,7 @@ export default function Settings(props) {
       </View>
       <View style={styles.adContainer}>
         <BannerAd
-          unitId={TestIds.BANNER}
+          unitId={bannerAdUnitId}
           size={BannerAdSize.BANNER}
           requestOptions={{
             requestNonPersonalizedAdsOnly: true,

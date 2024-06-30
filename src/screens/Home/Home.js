@@ -15,6 +15,7 @@ import {
   Dimensions,
   ScrollView,
   Pressable,
+  Platform,
 } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import Screen from '../../components/Screen';
@@ -36,7 +37,8 @@ import {
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
 
-const adUnitId = __DEV__ ? TestIds.BANNER : 'your-banner-ad-unit-id'; // Replace 'your-banner-ad-unit-id' with your real ad unit ID
+const interstitialAdUnitId = __DEV__ ? TestIds.INTERSTITIAL : Platform.OS==="ios"?'ca-app-pub-5520896784082974/3534901110': 'ca-app-pub-5520896784082974/4552469312';
+const bannerAdUnitId = __DEV__ ? TestIds.BANNER :  Platform.OS==="ios"?'ca-app-pub-5520896784082974/4391653372': 'ca-app-pub-5520896784082974/5682336704';
 
 export default function Home(props) {
   const [date, setDate] = React.useState('');
@@ -44,8 +46,9 @@ export default function Home(props) {
   const [userName, setUserName] = useState('');
   const [salary, setSalary] = useState('');
   const [transactions, setTransactions] = useState([]);
-  const interstitial = useRef(InterstitialAd.createForAdRequest(adUnitId));
+  const interstitial = useRef(InterstitialAd.createForAdRequest(interstitialAdUnitId));
   const [loaded, setLoaded] = useState(false);
+  const [isBannerAdLoaded, setIsBannerAdLoaded] = useState(false);
 
   function dateSetter() {
     const today = new Date();
@@ -67,8 +70,6 @@ export default function Home(props) {
       setUserName(result.name);
       setSalary(result.salary);
       setLoading(false);
-
-      console.log(JSON.stringify(result) + ' this is the user data');
     } catch (error) {
       console.error('Error retrieving user data:', error);
       setLoading(false);
@@ -79,7 +80,6 @@ export default function Home(props) {
     setLoading(true);
     try {
       const result = await getAddItem();
-      console.log(JSON.stringify(result) + ' these are the transaction');
       setTransactions(result);
       setLoading(false);
     } catch (err) {
@@ -105,7 +105,6 @@ export default function Home(props) {
       },
     );
 
-    // Load the initial ad
     loadAd();
 
     return () => {
@@ -123,7 +122,7 @@ export default function Home(props) {
 
   useEffect(() => {
     if (loaded) {
-      const adInterval = setInterval(showAd, 2 * 60 * 1000); // Show ad every 2 minutes
+      const adInterval = setInterval(showAd, 0.75* 60 * 1000); // Show ad every 2 minutes
       return () => clearInterval(adInterval);
     }
   }, [loaded]);
@@ -145,21 +144,25 @@ export default function Home(props) {
     <View style={{ flex: 1 }}>
       <Screen>
         <StatusBar backgroundColor={'white'} barStyle={'dark-content'} />
-        <View  style={styles.adContainer}>
-          <BannerAd
-            unitId={adUnitId}
-            size={BannerAdSize.BANNER}
-            requestOptions={{
-              requestNonPersonalizedAdsOnly: true,
-            }}
-            onAdLoaded={() => {
-              console.log('Ad loaded successfully');
-            }}
-            onAdFailedToLoad={(error) => {
-              console.error('Ad failed to load: ', error);
-            }}
-          />
-        </View>
+        {isBannerAdLoaded && (
+          <View style={styles.adContainer}>
+            <BannerAd
+              unitId={bannerAdUnitId}
+              size={BannerAdSize.BANNER}
+              requestOptions={{
+                requestNonPersonalizedAdsOnly: true,
+              }}
+              onAdLoaded={() => {
+                console.log('Banner ad loaded successfully');
+                setIsBannerAdLoaded(true);
+              }}
+              onAdFailedToLoad={(error) => {
+                console.error('Banner ad failed to load: ', error);
+                setIsBannerAdLoaded(false);
+              }}
+            />
+          </View>
+        )}
         
         <ScrollView
           style={styles.container}
@@ -278,7 +281,7 @@ const styles = StyleSheet.create({
   },
   incomeTextContainer: {
     marginHorizontal: 30,
-    marginTop: 30,
+    marginTop: 40,
   },
   imageFox: {
     height: DEVICE_WIDTH / 1.5,
@@ -378,6 +381,6 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     backgroundColor: 'white',
-    marginTop:10,
+    marginTop: 10,
   },
 });

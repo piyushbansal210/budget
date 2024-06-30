@@ -121,11 +121,12 @@ export default function UserDetails(props) {
         </ScrollView>
         <View style={styles.lowerContainer}>
           <Pressable
-            onPress={() => getaAddSalary()}
+            onPress={() => name && dateFormat && getaAddSalary()}
             style={[
               styles.button,
-              !(name && date) && { backgroundColor: '#EAEAEA' },
-            ]}>
+              !(name && dateFormat) && { backgroundColor: '#EAEAEA' },
+            ]}
+            disabled={!(name && dateFormat)}>
             <Text style={styles.buttonText}>Get Started →</Text>
           </Pressable>
         </View>
@@ -150,7 +151,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Century Gothic',
     textAlign: 'center',
-
+    opacity: 1, // Ensure text is fully visible even when the button is disabled
   },
   userDetails: {
     textAlign: 'center',
@@ -158,7 +159,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     marginBottom: 15,
     color: 'black',
-
   },
   loremLabel: {
     textAlign: 'center',
@@ -166,7 +166,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Century Gothic',
     marginBottom: 30,
     color: 'black',
-
   },
   textLabelContainer: {
     alignSelf: 'center',
@@ -174,14 +173,12 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   nameContainer: {
-    // backgroundColor:"red",
     marginBottom: 20,
   },
   labelStyle: {
     fontSize: 16,
     fontFamily: 'Century Gothic',
     color: 'black',
-
   },
   inputStyle: {
     fontSize: 16,
@@ -222,7 +219,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginTop: 15,
     color: 'black',
-
   },
   iconStyle: {
     alignItems: 'center',
