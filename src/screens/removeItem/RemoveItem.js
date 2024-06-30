@@ -169,7 +169,7 @@ const RemoveItem = props => {
                   paddingHorizontal: 8,
                   marginTop: 10,
                 }}>
-                <Text style={{ fontFamily: 'Century Gothic', fontSize: 14 }}>
+                <Text style={{ fontFamily: 'Century Gothic', fontSize: 14, color:"black" }}>
                   {props.route.params.items.note}
                 </Text>
               </View>

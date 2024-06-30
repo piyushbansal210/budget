@@ -1,13 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react/self-closing-comp */
-/* eslint-disable space-infix-ops */
-/* eslint-disable no-trailing-spaces */
-/* eslint-disable keyword-spacing */
-/* eslint-disable comma-dangle */
-/* eslint-disable quotes */
-/* eslint-disable no-unused-vars */
-/* eslint-disable semi */
-/* eslint-disable prettier/prettier */
 import {
   View,
   Text,
@@ -21,7 +11,6 @@ import {
   Pressable,
 } from 'react-native';
 import React, { useState, useRef, useMemo, useEffect } from 'react';
-
 import LinearGradient from 'react-native-linear-gradient';
 import Screen from '../../components/Screen';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
@@ -30,6 +19,7 @@ import { CommonActions, useFocusEffect } from '@react-navigation/native';
 import CheckBox from '../../components/CheckBox';
 import { getUserData } from '../../assets/asyncData/utils';
 import { USER } from '../../assets/asyncData/keys';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads'; // Import the necessary components
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
@@ -41,7 +31,6 @@ export default function Settings(props) {
   const [isChecked, setIsChecked] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
 
-
   const snapPoints = useMemo(() => ['25%', '50%'], []);
 
   const screens = [
@@ -50,7 +39,6 @@ export default function Settings(props) {
       screen_name: 'Personal Details',
       image: require('../../assets/images/profile.png'),
       screenName: 'PersonalInfo',
-
     },
     {
       id: 3,
@@ -64,12 +52,6 @@ export default function Settings(props) {
       image: require('../../assets/images/excel.png'),
       screenName: 'ExportExcel',
     },
-    // {
-    //   id: 5,
-    //   screen_name: 'Check Updates',
-    //   image: require('../../assets/images/reuse.png'),
-    //   screenName: 'Updates',
-    // },
     {
       id: 8,
       screen_name: 'Reset All Data',
@@ -83,7 +65,6 @@ export default function Settings(props) {
 
   useFocusEffect(
     React.useCallback(() => {
-
       const getUserDt = async () => {
         try {
           const result = await getUserData(USER);
@@ -91,13 +72,11 @@ export default function Settings(props) {
           setName(result.name);
         } catch (error) {
           console.error('Error retrieving user data:', error);
-          setLoading(false);
         }
       };
       getUserDt();
     }, [])
   );
-
 
   useFocusEffect(
     React.useCallback(() => {
@@ -156,9 +135,6 @@ export default function Settings(props) {
         </View>
         <View style={styles.headerRightContainer}>
           <Text style={styles.userNameStyle}>{name}</Text>
-          {/* <Text style={styles.userNameDescStyle}>
-            Lorem Ipsum, the trusted companion of designers and typesetters
-          </Text> */}
         </View>
       </View>
     );
@@ -196,6 +172,7 @@ export default function Settings(props) {
             marginBottom: 40,
             marginTop: 50,
           }}
+          contentContainerStyle={{ paddingBottom: 60 }} // Add padding at the bottom
         />
 
         <Modal
@@ -240,9 +217,19 @@ export default function Settings(props) {
           </View>
         </Modal>
       </View>
+      <View style={styles.adContainer}>
+        <BannerAd
+          unitId={TestIds.BANNER}
+          size={BannerAdSize.BANNER}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
+        />
+      </View>
     </Screen>
   );
 }
+
 
 const styles = StyleSheet.create({
   //   checkbox: {
@@ -401,6 +388,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 9,
+    paddingRight:12,
     paddingVertical: 10,
   },
   tagSettingsStyle: {
@@ -444,5 +432,12 @@ const styles = StyleSheet.create({
     color: '#888',
     textAlign: "center",
     fontFamily: "Century Gothic",
+  },
+  adContainer: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    alignItems: 'center',
+    backgroundColor: 'white',
   },
 });

@@ -4,7 +4,6 @@
 /* eslint-disable quotes */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable no-unused-vars */
-
 /* eslint-disable prettier/prettier */
 
 import {
@@ -21,7 +20,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import Screen from '../../components/Screen';
 import LinearGradient from 'react-native-linear-gradient';
 import AddItemComponenet from '../../components/AddItemComponenet';
-
 import { USER } from '../../assets/asyncData/keys';
 import { getAddItem, getUserData } from '../../assets/asyncData/utils';
 import Loader from '../../components/Loader';
@@ -31,12 +29,14 @@ import {
   AdEventType,
   InterstitialAd,
   TestIds,
+  BannerAd,
+  BannerAdSize,
 } from 'react-native-google-mobile-ads';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
 
-const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'your-ad-unit-id'; // Replace 'your-ad-unit-id' with your real ad unit ID
+const adUnitId = __DEV__ ? TestIds.BANNER : 'your-banner-ad-unit-id'; // Replace 'your-banner-ad-unit-id' with your real ad unit ID
 
 export default function Home(props) {
   const [date, setDate] = React.useState('');
@@ -145,16 +145,29 @@ export default function Home(props) {
     <View style={{ flex: 1 }}>
       <Screen>
         <StatusBar backgroundColor={'white'} barStyle={'dark-content'} />
+        <View  style={styles.adContainer}>
+          <BannerAd
+            unitId={adUnitId}
+            size={BannerAdSize.BANNER}
+            requestOptions={{
+              requestNonPersonalizedAdsOnly: true,
+            }}
+            onAdLoaded={() => {
+              console.log('Ad loaded successfully');
+            }}
+            onAdFailedToLoad={(error) => {
+              console.error('Ad failed to load: ', error);
+            }}
+          />
+        </View>
+        
         <ScrollView
           style={styles.container}
-          showsVerticalScrollIndicator={false}>
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 100 }}>
           <View>
             <View style={styles.userHeader}>
-              <View style={{
-                width: "50%",
-                alignItems: "flex-end"
-
-              }}>
+              <View style={{ width: "50%", alignItems: "flex-end" }}>
                 <Text numberOfLines={1} style={styles.username}>{userName}</Text>
                 <Text style={styles.username}>{date}</Text>
               </View>
@@ -178,7 +191,6 @@ export default function Home(props) {
               Let’s Manage your budget today so you don’t go overboard
             </Text>
           </View>
-
           <View style={{ marginHorizontal: 15, marginTop: 50 }}>
             <LinearGradient
               colors={[
@@ -214,7 +226,6 @@ export default function Home(props) {
               }}
             />
           </View>
-
           {salary && (
             <View style={styles.incomeTextContainer}>
               <LinearGradient
@@ -233,7 +244,6 @@ export default function Home(props) {
               </Text>
             </View>
           )}
-
           <View style={{ marginHorizontal: 20, marginTop: 20 }}>
             <TransactionsDisplay
               data={transactions}
@@ -282,9 +292,6 @@ const styles = StyleSheet.create({
     height: DEVICE_WIDTH / 2 + 10,
     paddingHorizontal: 15,
     borderRadius: 16,
-    // marginHorizontal:10,
-    // borderRadius:18,
-    // height:DEVICE_HEIGHT/4.5
   },
   leftContainerMainAdd: {
     flex: 6 / 10,
@@ -294,7 +301,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
   },
-
   buttonAdd: {
     backgroundColor: 'white',
     marginTop: 25,
@@ -312,7 +318,6 @@ const styles = StyleSheet.create({
   },
   helloAdd: {
     fontFamily: 'Century Gothic Bold',
-
     fontSize: 25,
     textTransform: 'uppercase',
     color: 'white',
@@ -320,13 +325,9 @@ const styles = StyleSheet.create({
   helloMessageAdd: {
     fontFamily: 'Century Gothic',
     fontSize: 14,
-    // lineHeight:18,
     marginTop: 10,
-    // width:"80%",
-    // lineHeight:20,
     color: 'white',
   },
-
   helloContainer: {
     marginHorizontal: 30,
     marginTop: 10,
@@ -346,7 +347,6 @@ const styles = StyleSheet.create({
     width: '80%',
     lineHeight: 20,
   },
-
   username: {
     fontFamily: 'Century Gothic',
     fontSize: 15,
@@ -368,11 +368,16 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    // backgroundColor:"orange",
   },
   linearUserPic: {
     padding: 10,
     borderRadius: 100,
     marginLeft: 10,
+  },
+  adContainer: {
+    width: '100%',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    marginTop:10,
   },
 });

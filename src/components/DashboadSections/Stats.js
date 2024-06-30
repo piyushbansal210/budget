@@ -7,15 +7,25 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 /* eslint-disable prettier/prettier */
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Dimensions, FlatList, Pressable, LogBox } from 'react-native';
-import { LineChart } from 'react-native-chart-kit';
+import React, {useState, useEffect} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  FlatList,
+  Pressable,
+  LogBox,
+} from 'react-native';
+import {LineChart} from 'react-native-chart-kit';
 import DatePicker from 'react-native-date-picker';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
-const Stats = ({ data }) => {
-  const [startDate, setStartDate] = useState(new Date(new Date().setMonth(new Date().getMonth() - 1)));
+const Stats = ({data}) => {
+  const [startDate, setStartDate] = useState(
+    new Date(new Date().setMonth(new Date().getMonth() - 1)),
+  );
   const [endDate, setEndDate] = useState(new Date());
   const [startOpen, setStartOpen] = useState(false);
   const [endOpen, setEndOpen] = useState(false);
@@ -24,7 +34,10 @@ const Stats = ({ data }) => {
   useEffect(() => {
     if (data && data.length > 0) {
       const sortedData = data
-        .filter(item => new Date(item.date) >= startDate && new Date(item.date) <= endDate)
+        .filter(
+          item =>
+            new Date(item.date) >= startDate && new Date(item.date) <= endDate,
+        )
         .sort((a, b) => new Date(a.date) - new Date(b.date));
       setFilteredData(sortedData);
     } else {
@@ -32,17 +45,23 @@ const Stats = ({ data }) => {
     }
   }, [startDate, endDate, data]);
 
-  const parsedData = filteredData.map((item) => ({
+  const parsedData = filteredData.map(item => ({
     date: new Date(item.date).toLocaleDateString(),
-    income: item.type === 'Income' ? parseFloat(item.amount.replace(/[^0-9.-]+/g, "")) : 0,
-    expense: item.type === 'Expense' ? parseFloat(item.amount.replace(/[^0-9.-]+/g, "")) : 0,
-    balance: 0 // This will be calculated
+    income:
+      item.type === 'Income'
+        ? parseFloat(item.amount.replace(/[^0-9.-]+/g, ''))
+        : 0,
+    expense:
+      item.type === 'Expense'
+        ? parseFloat(item.amount.replace(/[^0-9.-]+/g, ''))
+        : 0,
+    balance: 0, // This will be calculated
   }));
 
   let runningBalance = 0;
   const balanceData = parsedData.map(item => {
     runningBalance += item.income - item.expense;
-    return { ...item, balance: runningBalance };
+    return {...item, balance: runningBalance};
   });
 
   const chartData = {
@@ -51,13 +70,13 @@ const Stats = ({ data }) => {
       {
         data: balanceData.map(item => item.balance),
         color: (opacity = 1) => `rgba(48, 82, 248, ${opacity})`,
-        strokeWidth: 2
-      }
+        strokeWidth: 2,
+      },
     ],
-    legend: ["Balance"]
+    legend: ['Balance'],
   };
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({item}) => (
     <View style={styles.tableRow}>
       <Text style={styles.tableCell}>{item.date}</Text>
       <Text style={styles.tableCell}>{item.income.toFixed(2)}</Text>
@@ -117,7 +136,7 @@ const Stats = ({ data }) => {
             marginVertical: 10,
             padding: 10,
             borderRadius: 5,
-            marginBottom: 25
+            marginBottom: 25,
           }}>
           <Text
             style={{
@@ -164,26 +183,26 @@ const Stats = ({ data }) => {
                 style: {
                   borderRadius: 16,
                   marginLeft: 8,
-                  marginRight: 8
+                  marginRight: 8,
                 },
                 propsForDots: {
                   r: '6',
                   strokeWidth: '2',
-                  stroke: '#ffffff'
-                }
+                  stroke: '#ffffff',
+                },
               }}
               bezier
               style={{
                 marginVertical: 8,
                 borderRadius: 16,
                 paddingRight: 20,
-                paddingLeft: 20
+                paddingLeft: 20,
               }}
               fromZero
               withInnerLines={false}
               withOuterLines={false}
               withHorizontalLabels={false}
-              formatXLabel={(label) => label.slice(0, 5)}
+              formatXLabel={label => label.slice(0, 5)}
             />
           </View>
           <View style={styles.tableHeader}>
@@ -196,11 +215,22 @@ const Stats = ({ data }) => {
             data={balanceData}
             renderItem={renderItem}
             keyExtractor={(item, index) => index.toString()}
-            ListEmptyComponent={<Text style={styles.noDataText}>No Data Available</Text>}
+            ListEmptyComponent={
+              <Text style={styles.noDataText}>No Data Available</Text>
+            }
           />
         </>
       ) : (
-        <Text style={styles.noDataText}>No Data Available for the selected date range</Text>
+        <Text style={styles.noDataText}>
+          No Data Available for the selected date range
+        </Text>
+      )}
+      {filteredData.length <= 0 && (
+        <View
+          style={{
+            height: Dimensions.get('screen').height,
+          }}
+        />
       )}
     </View>
   );
@@ -240,8 +270,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     flex: 1,
     textAlign: 'center',
-    fontFamily: "Century Gothic",
-    color: "black"
+    fontFamily: 'Century Gothic',
+    color: 'black',
   },
   tableRow: {
     flexDirection: 'row',
@@ -253,14 +283,13 @@ const styles = StyleSheet.create({
   tableCell: {
     flex: 1,
     textAlign: 'center',
-    color: "black"
-
+    color: 'black',
   },
   noDataText: {
     textAlign: 'center',
     marginTop: 20,
-    fontFamily: "Century Gothic",
-    color: "black"
+    fontFamily: 'Century Gothic',
+    color: 'black',
   },
 });
 
