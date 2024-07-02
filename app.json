@@ -1,6 +1,6 @@
 {
-  "name": "budget",
-  "displayName": "budget",
+  "name": "Spend Sync",
+  "displayName": "Spend Sync",
   "react-native-google-mobile-ads": {
     "android_app_id": "ca-app-pub-5520896784082974~1069376101",
     "ios_app_id": "ca-app-pub-5520896784082974~7776053555"

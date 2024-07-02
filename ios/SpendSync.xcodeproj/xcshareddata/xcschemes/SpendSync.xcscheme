@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "budget.app"
-               BlueprintName = "budget"
-               ReferencedContainer = "container:budget.xcodeproj">
+               BuildableName = "SpendSync.app"
+               BlueprintName = "SpendSync"
+               ReferencedContainer = "container:SpendSync.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "budgetTests.xctest"
-               BlueprintName = "budgetTests"
-               ReferencedContainer = "container:budget.xcodeproj">
+               BuildableName = "SpendSyncTests.xctest"
+               BlueprintName = "SpendSyncTests"
+               ReferencedContainer = "container:SpendSync.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "budget.app"
-            BlueprintName = "budget"
-            ReferencedContainer = "container:budget.xcodeproj">
+            BuildableName = "SpendSync.app"
+            BlueprintName = "SpendSync"
+            ReferencedContainer = "container:SpendSync.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "budget.app"
-            BlueprintName = "budget"
-            ReferencedContainer = "container:budget.xcodeproj">
+            BuildableName = "SpendSync.app"
+            BlueprintName = "SpendSync"
+            ReferencedContainer = "container:SpendSync.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
